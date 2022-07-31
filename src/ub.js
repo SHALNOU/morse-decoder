@@ -35,40 +35,11 @@ const MORSE_TABLE = {
 	'---..': '8',
 	'----.': '9',
 	'-----': '0',
+	'**********': ' ',
 };
 
-const MORSE_LETTERS = {
-	'00': '',
-	10: '.',
-	11: '-',
-}
-
-const SPACE = '**********';
-
-const morseReplacer = (match) => {
-	return MORSE_LETTERS[match];
-};
-
-function decode(expr) {
-	const letterArr = expr.match(/.{10}/g);
-
-	const morseCode = letterArr.map((letter) =>
-		letter.replace(/[0-1]{2}/g, morseReplacer)
-	);
-
-	const resultStr = morseCode
-		.map((letter) => {
-			if (letter === SPACE) {
-				return ' ';
-			} else {
-				return MORSE_TABLE[letter];
-			}
-		})
-		.join('');
-
-	return resultStr;
-}
+let decode = expr => expr.match(/.{10}/g).map(item => item.replace(/00/g, "").replace(/11/g, '-').replace(/10/g, '.')).map(x => x = MORSE_TABLE[x]).join('');
 
 module.exports = {
-	decode,
-}
+	decode
+};
